@@ -54,10 +54,11 @@
   </div>
 
   <div id="collage-lightbox" class="collage-lightbox" role="dialog"
-       aria-modal="true" aria-label="Photo viewer" hidden>
+      aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="collage-close" type="button" aria-label="Close">×</button>
     <button class="collage-prev" type="button" aria-label="Previous">‹</button>
     <img class="collage-lightbox-image" alt="">
+    <p id="collage-caption" class="collage-caption"></p>
     <button class="collage-next" type="button" aria-label="Next">›</button>
     <span class="collage-counter"></span>
   </div>
@@ -75,6 +76,7 @@
       let currentIndex = 0;
       let lastFocused = null;
       let resizePending = false;
+      let captions = {};
 
       for (const size of ["small", "large"]) {
         const count = Number(gallery.dataset[size] || 0);
@@ -112,10 +114,28 @@
           resizeGallery();
         });
       }
-
+      async function loadCaptions() {
+        const response = await fetch("assets/photos/captions.csv");
+        if (!response.ok) throw new Error(`CSV loading failed: ${response.status}`);
+        const text = await response.text();
+        const rows = text.replace(/^\uFEFF/, "").trim().split(/\r?\n/).slice(1);
+        return Object.fromEntries(rows.filter(Boolean).map(row => {
+          const [directory, number, en, ja] = row.split(",");
+          const filename = `IMG_${String(Number(number)).padStart(2, "0")}.jpg`;
+          return [`${directory.trim()}/${filename}`, {
+            en: (en || "").trim(),
+            ja: (ja || "").trim()
+          }];
+        }));
+      }
       function showPhoto() {
         const photo = photos[currentIndex];
+        const key = `${photo.size}/${photo.src.split("/").pop()}`;
+        const lang = document.documentElement.dataset.language === "ja" ? "ja" : "en";
+        const caption = captions[key]?.[lang] || "";
         viewer.src = photo.src;
+        viewer.alt = caption;
+        document.getElementById("collage-caption").textContent = caption;
         counter.textContent = `${currentIndex + 1} / ${photos.length}`;
       }
 
@@ -196,8 +216,14 @@
         }
       });
 
-      window.addEventListener("resize", scheduleResize);
-      scheduleResize();
+    window.addEventListener("resize", scheduleResize);
+    scheduleResize();
+
+    loadCaptions().then(data => {
+      captions = data;
+      if (!lightbox.hidden) showPhoto();
+    }).catch(error => console.error("キャプションの読み込みに失敗:", error));
+
     });
   </script>
 </body>

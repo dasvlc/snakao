@@ -510,3 +510,16 @@ body.lightbox-open {
     transition: none;
   }
 }
+.collage-caption {
+  position: absolute;
+  bottom: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 40px);
+  margin: 0;
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.6;
+}
