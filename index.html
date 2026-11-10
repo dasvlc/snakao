@@ -1,12 +1,481 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Test page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Shunsuke Nakao — volcanology, seismology, distributed acoustic sensing.">
+  <title>Profile — Shunsuke Nakao</title>
+  <script>
+(function(d) {
+  var config = {kitId: 'ovn4xxu', scriptTimeout: 3000, async: true};
+  var h = d.documentElement;
+  var t = setTimeout(function() {h.className = h.className.replace(/\bwf-loading\b/g, '') + ' wf-inactive';}, config.scriptTimeout);
+  var tk = d.createElement('script'), f = false, s = d.getElementsByTagName('script')[0], a;
+  h.className += ' wf-loading';
+  tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+  tk.async = true;
+  tk.onload = tk.onreadystatechange = function() {
+    a = this.readyState;
+    if (f || a && a != 'complete' && a != 'loaded') return;
+    f = true; clearTimeout(t);
+    try {Typekit.load(config);} catch(e) {}
+  };
+  s.parentNode.insertBefore(tk, s);
+})(document);
+</script>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/lang.js" defer></script>
 </head>
 <body>
-<h1>Test page</h1>
-<p>Volcanology / Seismology / Distributed Acoustic Sensing</p>
+  <div class="site">
+    <nav class="top-nav" aria-label="Site navigation">
+      <a href="index.html"><span data-i18n="en">Profile</span><span data-i18n="ja">プロフィール</span></a>
+      <a href="activities.html"><span data-i18n="en">Activities</span><span data-i18n="ja">活動記録</span></a>
+      <div class="language" role="group" aria-label="Language">
+        <button type="button" data-setlang="en" aria-pressed="true">EN</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-setlang="ja" aria-pressed="false">JP</button>
+      </div>
+    </nav>
+    <main>
+      <div class="profile-head">
+        <div class="avatar">
+          <img src="assets/photos/profile.jpg" alt="Shunsuke Nakao">
+        </div>
+        <div>
+          <h1><span data-i18n="en">Shunsuke Nakao</span><span data-i18n="ja">中尾俊介</span></h1>
+          <p class="profile-meta"><span data-i18n="en">Volcanology · Seismology · Geophysics</span><span data-i18n="ja">火山学・地震学・地球物理学</span></p>
+          <p class="profile-detail"><span data-i18n="en">Graduate School of Science / Earthquake Research Institute, The University of Tokyo, Japan</span><span data-i18n="ja">東京大学大学院理学系研究科/東京大学地震研究所</span></p>
+        </div>
+      </div>
+
+      <section id="about" class="section">
+        <h2 class="section-title"><span data-i18n="en">About</span><span data-i18n="ja">自己紹介</span></h2>
+        <p class="intro-copy" data-i18n="en">I study volcano-seismic processes using distributed acoustic sensing (DAS).</p>
+        <p class="intro-copy" data-i18n="ja">分布型音響センシング（DAS）を用いて火山で起こる地震を研究しています．</p>
+      </section>
+
+      <section id="work" class="section">
+        <h2 class="section-title"><span data-i18n="en">Research & projects</span><span data-i18n="ja">研究・プロジェクト</span></h2>
+
+        <div class="entry entry-thumb-layout">
+          <div class="entry-thumb"> <img src="assets/photos/das.jpg" alt="DAS"></div>
+          <div class="entry-main">
+            <span data-i18n="en">Distributed acoustic sensing</span><span data-i18n="ja">分布型音響センシング</span>
+            <div class="entry-sub"><span data-i18n="en">Dense seismic observations with optical fibers for volcano and earthquake monitoring.</span><span data-i18n="ja">火山・地震モニタリングのための光ファイバ高密度観測．</span></div>
+          </div>
+        </div>
+
+        <div class="entry entry-thumb-layout">
+          <div class="entry-thumb"><img src="assets/photos/tonga.jpg" alt="Tonga"></div>
+          <div class="entry-main">
+            <span data-i18n="en">Tonga</span><span data-i18n="ja">トンガ</span>
+            <div class="entry-sub"><span data-i18n="en">Submarine cable DAS observations near Hunga volcano after the 2022 eruption.</span><span data-i18n="ja">2022年に大規模噴火を起こしたHunga火山周辺における海底ケーブルDAS観測．</span></div>
+          </div>
+        </div>
+
+        <div class="entry entry-thumb-layout">
+          <div class="entry-thumb"><img src="assets/photos/asama.jpg" alt="Asama Volcano"></div>
+          <div class="entry-main">
+            <span data-i18n="en">Asama Volcano</span><span data-i18n="ja">浅間山</span>
+            <div class="entry-sub"><span data-i18n="en">DAS observations and volcano monitoring at an active volcano in Japan.</span><span data-i18n="ja">日本の活火山におけるDAS観測と火山モニタリング．</span></div>
+          </div>
+        </div>
+
+        <p class="section-foot"><a class="animated-link" href="activities.html"><span data-i18n="en">Photos & activities</span><span data-i18n="ja">写真・活動記録</span><span class="arrow">↗</span></a></p>
+      </section>
+
+      <section id="publications" class="section">
+        <h2 class="section-title">
+          <span data-i18n="en">Publications</span>
+          <span data-i18n="ja">論文</span>
+        </h2>
+        <h3 class="mini-heading"><span data-i18n="en">Peer-reviewed papers</span><span data-i18n="ja">査読付き論文</span></h3>
+        <div class="entry">
+          <div class="entry-year"> </div>
+          <div class="entry-main">
+            <div class="publication-title">
+              Not yet published :(
+            </div>
+          </div>
+        </div>
+        <h3 class="mini-heading"><span data-i18n="en">Preprints</span><span data-i18n="ja">プレプリント</span></h3>
+        <div class="entry">
+          <div class="entry-year">2026</div>
+          <div class="entry-main">
+            <div class="publication-title">
+              Analyzing volcanic-like earthquakes with distributed acoustic sensing using a short segment of the Tongan seafloor telecommunications cable
+            </div>
+            <div class="publication-authors">
+              <strong>Shunsuke Nakao</strong>, Mie Ichihara, Masaru Nakano, Taaniela Kula, Rennie Vaiomounga, Masanao Shinohara
+            </div>
+            <div class="entry-sub">
+              <em>EarthArXiv</em> · Preprint ·
+              <a class="animated-link" href="https://doi.org/10.31223/X5SF35" target="_blank" rel="noopener noreferrer">
+                DOI <span class="arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+      <section id="presentations" class="section">
+        <h2 class="section-title">
+          <span data-i18n="en">Presentations</span>
+          <span data-i18n="ja">学会発表</span>
+        </h2>
+
+
+      <!-- 2026.9 日本火山学会秋季大会 -->
+      <div class="entry">
+        <div class="entry-year">2026.9</div>
+        <div class="entry-main">
+          <div class="presentation-title">
+            <span data-i18n="en">
+              Detection of VLP Events by DAS Observations at Asama Volcano
+            </span>
+            <span data-i18n="ja">
+              浅間DAS観測によるVLPイベントの検出
+            </span>
+          </div>
+          <div class="presentation-authors">
+            <span data-i18n="en">
+              <strong>Shunsuke Nakao</strong>, Mie Ichihara, Nozomu Yamamoto,
+              Yohei Yukutake, Takao Ohminato
+            </span>
+            <span data-i18n="ja">
+              <strong>中尾俊介</strong>，市原美恵，山本希，行竹洋平，大湊隆雄
+            </span>
+          </div>
+          <div class="entry-sub">
+            <span data-i18n="en">
+              Volcanological Society of Japan Fall Meeting · Yamagata · Poster presentation
+            </span>
+            <span data-i18n="ja">
+              日本火山学会秋季大会 · 山形 · ポスター発表
+            </span>
+             <!-- / <a class="animated-link" href="https://doi.org/XXXXX" target="_blank" rel="noopener noreferrer"><span data-i18n="en">Abstract</span><span data-i18n="ja">要旨</span> <span class="arrow">↗</span></a> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026.9 Galileo Conference -->
+      <div class="entry">
+        <div class="entry-year">2026.9</div>
+        <div class="entry-main">
+          <div class="presentation-title">
+            Seismic Monitoring and S-wave Velocity Structure Analysis of the Hunga Volcano
+            with Distributed Acoustic Sensing on an Active Telecommunication Cable
+          </div>
+          <div class="presentation-authors">
+            <strong>Shunsuke Nakao</strong>, Mie Ichihara, Masaru Nakano,
+            Taaniela Kula, Rennie Vaiomounga, Rebecca Carey,
+            Takao Ohminato, Masanao Shinohara
+          </div>
+          <div class="entry-sub">
+            Galileo Conference: Fibre Optic Sensing in Geosciences · Aussois · Poster presentation
+             / <a class="animated-link" href="https://doi.org/10.5194/egusphere-gc14-fibreoptic-79" target="_blank" rel="noopener noreferrer"><span data-i18n="en">Abstract</span><span data-i18n="ja">要旨</span> <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026.5 JpGU-AGU Joint Meeting -->
+      <div class="entry">
+        <div class="entry-year">2026.5</div>
+        <div class="entry-main">
+          <div class="presentation-title">
+            <span data-i18n="en">
+              Seismic Monitoring and S-wave Velocity Structure Analysis of the Hunga Volcano
+              with Distributed Acoustic Sensing on an Active Telecommunication Cable
+            </span>
+            <span data-i18n="ja">
+              通信中の海底ケーブルを用いた分布型音響センシングによる
+              フンガ火山の地震モニタリングとS波速度構造解析
+            </span>
+          </div>
+          <div class="presentation-authors">
+            <span data-i18n="en">
+              <strong>Shunsuke Nakao</strong>, Mie Ichihara, Masaru Nakano,
+              Taaniela Kula, Rennie Vaiomounga, Rebecca Carey,
+              Takao Ohminato, Masanao Shinohara
+            </span>
+            <span data-i18n="ja">
+              <strong>中尾俊介</strong>，市原美恵，中野優，
+              Taaniela Kula，Rennie Vaiomounga，Rebecca Carey，
+              大湊隆雄，篠原雅尚
+            </span>
+          </div>
+          <div class="entry-sub">
+            <span data-i18n="en">
+              JpGU-AGU Joint Meeting 2026 · Makuhari · Poster presentation
+            </span>
+            <span data-i18n="ja">
+              日本地球惑星科学連合2026年大会 · 幕張 · ポスター発表
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026.5 EGU General Assembly -->
+      <div class="entry">
+        <div class="entry-year">2026.5</div>
+        <div class="entry-main">
+          <div class="presentation-title">
+              Analyzing volcanic-like earthquakes with distributed acoustic sensing
+              using a short segment of the Tongan seafloor telecommunications cable
+          </div>
+          <div class="presentation-authors">
+              <strong>Shunsuke Nakao</strong>, Mie Ichihara, Masaru Nakano,
+              Taaniela Kula, Rennie Vaiomounga, Masanao Shinohara
+          </div>
+          <div class="entry-sub">
+              EGU General Assembly 2026 · Vienna · Poster presentation
+              / <a class="animated-link" href="https://doi.org/10.5194/egusphere-egu26-8769" target="_blank" rel="noopener noreferrer"><span data-i18n="en">Abstract</span><span data-i18n="ja">要旨</span> <span class="arrow">↗</span></a>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- 2025.10 日本火山学会秋季大会 -->
+      <div class="entry">
+        <div class="entry-year">2025.10</div>
+        <div class="entry-main">
+          <div class="presentation-title">
+            <span data-i18n="en">
+              Preliminary report of volcano observations in Tonga using DAS
+              via seafloor cables during communication use
+            </span>
+            <span data-i18n="ja">
+              通信中ケーブルを用いたトンガにおけるDAS火山観測の実施（速報）
+            </span>
+          </div>
+          <div class="presentation-authors">
+            <span data-i18n="en">
+              <strong>Shunsuke Nakao</strong>, Mie Ichihara, Masaru Nakano,
+              Taaniela Kula, Rennie Vaiomounga, Tonga Geological Services Staff,
+              Rebecca Carey, Takao Ohminato, Masanao Shinohara
+            </span>
+            <span data-i18n="ja">
+              <strong>中尾俊介</strong>，市原美恵，中野優，
+              Taaniela Kula，Rennie Vaiomounga，Tonga Geological Services Staff，
+              Rebecca Carey，大湊隆雄，篠原雅尚
+            </span>
+          </div>
+          <div class="entry-sub">
+            <span data-i18n="en">
+              Volcanological Society of Japan Fall Meeting · Matsumoto · Poster presentation
+            </span>
+            <span data-i18n="ja">
+              日本火山学会秋季大会 · 松本 · ポスター発表
+            </span>
+            / <a class="animated-link" href="https://doi.org/10.18940/vsj.2025.0_36" target="_blank" rel="noopener noreferrer"><span data-i18n="en">Abstract</span><span data-i18n="ja">要旨</span> <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2025.5 日本地球惑星科学連合大会 -->
+      <div class="entry">
+        <div class="entry-year">2025.5</div>
+        <div class="entry-main">
+          <div class="presentation-title">
+            <span data-i18n="en">
+              Estimation of Volcanic Earthquake Source Direction in Tonga DAS Observations
+            </span>
+            <span data-i18n="ja">
+              トンガDAS観測における火山性地震の震源方位推定
+            </span>
+          </div>
+          <div class="presentation-authors">
+            <span data-i18n="en">
+              <strong>Shunsuke Nakao</strong>, Mie Ichihara, Masaru Nakano,
+              Rennie Vaiomounga, Taaniela Kula, Masanao Shinohara
+            </span>
+            <span data-i18n="ja">
+              <strong>中尾俊介</strong>，市原美恵，中野優，
+              Vaiomounga Rennie，Kula Taaniela，篠原雅尚
+            </span>
+          </div>
+          <div class="entry-sub">
+            <span data-i18n="en">
+              Japan Geoscience Union Meeting 2025 · Makuhari · Oral presentation
+            </span>
+            <span data-i18n="ja">
+              日本地球惑星科学連合大会 · 幕張 · 口頭発表
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2024.10 日本火山学会秋季大会 -->
+      <div class="entry">
+        <div class="entry-year">2024.10</div>
+        <div class="entry-main">
+          <div class="presentation-title">
+            <span data-i18n="en">
+              Estimation of hypocenter direction by DAS observation
+              using Tonga seafloor telecommunications cable
+            </span>
+            <span data-i18n="ja">
+              トンガ海底通信ケーブルを用いたDAS観測による震源方位推定
+            </span>
+          </div>
+          <div class="presentation-authors">
+            <span data-i18n="en">
+              <strong>Shunsuke Nakao</strong>, Mie Ichihara, Masaru Nakano,
+              Rennie Vaiomounga, Taaniela Kula, Masanao Shinohara
+            </span>
+            <span data-i18n="ja">
+              <strong>中尾俊介</strong>，市原美恵，中野優，
+              Vaiomounga Rennie，Kula Taaniela，篠原雅尚
+            </span>
+          </div>
+          <div class="entry-sub">
+            <span data-i18n="en">
+              Volcanological Society of Japan Fall Meeting · Sapporo · Poster presentation
+            </span>
+            <span data-i18n="ja">
+              日本火山学会秋季大会 · 札幌 · ポスター発表
+            </span>
+            / <a class="animated-link" href="https://doi.org/10.18940/vsj.2024.0_221" target="_blank" rel="noopener noreferrer"><span data-i18n="en">Abstract</span><span data-i18n="ja">要旨</span> <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2024.5 日本地球惑星科学連合大会 -->
+      <div class="entry">
+        <div class="entry-year">2024.5</div>
+        <div class="entry-main">
+          <div class="presentation-title">
+            <span data-i18n="en">
+              Detection of volcanic earthquakes by DAS observation
+              using Tonga seafloor telecommunications cable
+            </span>
+            <span data-i18n="ja">
+              トンガ海底通信ケーブルを用いたDAS観測による火山性地震の検出
+            </span>
+          </div>
+          <div class="presentation-authors">
+            <span data-i18n="en">
+              <strong>Shunsuke Nakao</strong>, Mie Ichihara, Masaru Nakano,
+              Rennie Vaiomounga, Taaniela Kula, Masanao Shinohara
+            </span>
+            <span data-i18n="ja">
+              <strong>中尾俊介</strong>，市原美恵，中野優，
+              Vaiomounga Rennie，Kula Taaniela，篠原雅尚
+            </span>
+          </div>
+          <div class="entry-sub">
+            <span data-i18n="en">
+              Japan Geoscience Union Meeting 2024 · Makuhari · Poster presentation
+            </span>
+            <span data-i18n="ja">
+              日本地球惑星科学連合大会 · 幕張 · ポスター発表
+            </span>
+          </div>
+        </div>
+      </div>
+
+      </section>
+
+      <section id="cv" class="section">
+        <h2 class="section-title">
+          <span data-i18n="en">Experience & Education</span>
+          <span data-i18n="ja">経歴</span>
+        </h2>
+
+        <h3 class="mini-heading">
+          <span data-i18n="en">Education</span>
+          <span data-i18n="ja">学歴</span>
+        </h3>
+
+        <div class="entry">
+          <div class="entry-year">2026 – </div>
+          <div class="entry-main">
+            <span data-i18n="en">Doctoral Program</span>
+            <span data-i18n="ja">博士課程</span>
+
+            <div class="entry-sub">
+              <span data-i18n="en">
+                Department of Earth and Planetary Science,
+                Graduate School of Science,
+                The University of Tokyo
+              </span>
+              <span data-i18n="ja">
+                東京大学大学院理学系研究科 地球惑星科学専攻
+              </span>
+            </div>
+
+            <div class="entry-sub">
+              <span data-i18n="en">
+                Ichihara Laboratory,
+                Volcano Research Center,
+                Earthquake Research Institute
+              </span>
+              <span data-i18n="ja">
+                東京大学地震研究所 火山噴火予知研究センター
+                市原研究室
+              </span>
+            </div>
+          </div>
+        </div>
+
+
+      <div class="entry">
+        <div class="entry-year">2024 – 2026</div>
+        <div class="entry-main">
+          <span data-i18n="en">Master's Program</span>
+          <span data-i18n="ja">修士課程</span>
+
+          <div class="entry-sub">
+            <span data-i18n="en">
+              Department of Earth and Planetary Science,
+              Graduate School of Science,
+              The University of Tokyo
+            </span>
+            <span data-i18n="ja">
+              東京大学大学院理学系研究科 地球惑星科学専攻
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="entry">
+        <div class="entry-year">2020 – 2024</div>
+        <div class="entry-main">
+          <span data-i18n="en">Undergraduate Program</span>
+          <span data-i18n="ja">学士課程</span>
+
+          <div class="entry-sub">
+            <span data-i18n="en">
+              Department of Earth and Planetary Physics,
+              Faculty of Science, The University of Tokyo
+            </span>
+            <span data-i18n="ja">
+              東京大学理学部 地球惑星物理学科
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      </section>
+
+      <section id="contact" class="section">
+        
+        <h2 class="section-title"><span data-i18n="en">Contact & links</span><span data-i18n="ja">連絡先・リンク</span></h2>
+        
+        <div class="contact-email">
+          <a class="animated-link" href="mailto:s-nakao@eri.u-tokyo.ac.jp">
+            s-nakao@eri.u-tokyo.ac.jp <span class="arrow">↗</span>
+          </a>
+        </div>
+        <div class="links"><a class="animated-link" href="https://github.com/dasvlc">GitHub <span class="arrow">↗</span></a><a class="animated-link" href="https://scholar.google.com/citations?user=VC2XjJMAAAAJ">Google Scholar <span class="arrow">↗</span></a><a class="animated-link" href="https://www.eri.u-tokyo.ac.jp/ichihalab/index.html"><span data-i18n="en">Ichihara Lab</span><span data-i18n="ja">市原研究室</span> <span class="arrow">↗</span></a><a class="animated-link" href="https://www.eri.u-tokyo.ac.jp"><span data-i18n="en">Earthquake Research Institute</span><span data-i18n="ja">東京大学地震研究所</span> <span class="arrow">↗</span></a></div>
+
+
+      </section>
+    </main>
+    <footer>© Shunsuke Nakao <span class="footer-dot">·</span> <a class="animated-link" href="index.html">snakao.jp</a></footer>
+  </div>
 </body>
 </html>
