@@ -8,18 +8,18 @@
   <script src="https://use.typekit.net/ovn4xxu.js"></script>
   <script>try { Typekit.load({async: true}); } catch(e) {}</script>
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/photo-atlas.css">
   <script src="assets/lang.js" defer></script>
+  <script src="assets/photo-atlas.js" defer></script>
 </head>
 <body class="photos-page">
   <div class="site">
     <nav class="top-nav" aria-label="Site navigation">
       <a href="index.html">
-        <span data-i18n="en">Profile</span>
-        <span data-i18n="ja">プロフィール</span>
+        <span data-i18n="en">Profile</span><span data-i18n="ja">プロフィール</span>
       </a>
       <a href="activities.html">
-        <span data-i18n="en">Activities</span>
-        <span data-i18n="ja">活動記録</span>
+        <span data-i18n="en">Photos</span><span data-i18n="ja">写真</span>
       </a>
       <div class="language" role="group" aria-label="Language">
         <button type="button" data-setlang="en" aria-pressed="true">EN</button>
@@ -29,203 +29,66 @@
     </nav>
 
     <main>
-      <div class="photos-head">
-        <h1>
-          <span data-i18n="en">Activities</span>
-          <span data-i18n="ja">活動記録</span>
-        </h1>
-      </div>
+      <header class="photos-head">
+        <h1><span data-i18n="en">Photos</span><span data-i18n="ja">写真</span></h1>
+      </header>
+      <p class="muted">
+        <span data-i18n="en">Landscapes and moments from the field.</span>
+        <span data-i18n="ja">フィールド等での風景．</span>
+      </p>
 
-        <p class="muted">
-          <span data-i18n="en">Landscapes and moments from the field.</span>
-          <span data-i18n="ja">フィールド等での風景．</span>
-        </p>
+      <section class="atlas" aria-labelledby="atlas-heading">
+        <div class="atlas-heading-row">
+          <div>
+            <h2 id="atlas-heading" class="atlas-heading">Atlas</h2>
+          </div>
+          <button id="atlas-reset" type="button" class="atlas-text-button">
+            <span data-i18n="en">Show all photographs</span><span data-i18n="ja">すべての写真</span>
+          </button>
+        </div>
+        <nav id="atlas-breadcrumb" class="atlas-breadcrumb" aria-label="Map location"></nav>
+        <div class="atlas-map-frame">
+          <div id="atlas-map" class="atlas-map" role="group" aria-label="Select a region on the map">
+            <img id="atlas-map-image" class="atlas-map-image" src="assets/maps/world.svg" alt="Stylized world map">
+            <div id="atlas-markers" class="atlas-markers"></div>
+          </div>
+          
+        </div>
+      </section>
 
-      <div id="photo-gallery" class="collage-gallery"
-           data-small="54"
-           data-large="9"></div>
+      <section class="atlas-gallery-section" aria-labelledby="gallery-heading">
+        <div class="atlas-gallery-head">
+          <div>
+            <h2 id="gallery-heading" class="atlas-heading">Photographs <span id="atlas-count" class="atlas-count"></span></h2>
+          </div>
+          <div id="atlas-categories" class="atlas-categories" role="group" aria-label="Filter by subject"></div>
+        </div>
+        <p id="atlas-empty" class="atlas-empty" hidden></p>
+        <div id="photo-gallery" class="collage-gallery atlas-gallery"></div>
+      </section>
     </main>
 
-    <footer>
-      © Shunsuke Nakao
-      <span class="footer-dot">·</span>
+    <footer>© Shunsuke Nakao <span class="footer-dot">·</span>
       <a class="animated-link" href="index.html">snakao.jp</a>
     </footer>
   </div>
 
-  <div id="collage-lightbox" class="collage-lightbox" role="dialog"
-      aria-modal="true" aria-label="Photo viewer" hidden>
+  <div id="collage-lightbox" class="collage-lightbox atlas-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="collage-close" type="button" aria-label="Close">×</button>
     <button class="collage-prev" type="button" aria-label="Previous">‹</button>
-    <img class="collage-lightbox-image" alt="">
-    <p id="collage-caption" class="collage-caption"></p>
+    <div class="atlas-viewer-main">
+      <img class="collage-lightbox-image" alt="">
+      <div class="atlas-viewer-info">
+        <p id="collage-caption" class="collage-caption"></p>
+        <p id="atlas-photo-location"></p>
+        <p id="atlas-photo-coordinates"></p>
+        <p id="atlas-photo-camera"></p>
+        <div id="atlas-related" class="atlas-related"></div>
+      </div>
+    </div>
     <button class="collage-next" type="button" aria-label="Next">›</button>
     <span class="collage-counter"></span>
   </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const gallery = document.getElementById("photo-gallery");
-      const lightbox = document.getElementById("collage-lightbox");
-      const viewer = lightbox.querySelector(".collage-lightbox-image");
-      const counter = lightbox.querySelector(".collage-counter");
-      const closeButton = lightbox.querySelector(".collage-close");
-      const prevButton = lightbox.querySelector(".collage-prev");
-      const nextButton = lightbox.querySelector(".collage-next");
-      const photos = [];
-      let currentIndex = 0;
-      let lastFocused = null;
-      let resizePending = false;
-      let captions = {};
-
-      for (const size of ["small", "large"]) {
-        const count = Number(gallery.dataset[size] || 0);
-        for (let i = 1; i <= count; i++) {
-          const number = String(i).padStart(2, "0");
-          photos.push({
-            src: `assets/photos/${size}/IMG_${number}.jpg`,
-            size
-          });
-        }
-      }
-
-      for (let i = photos.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [photos[i], photos[j]] = [photos[j], photos[i]];
-      }
-
-      function resizeGallery() {
-        const styles = getComputedStyle(gallery);
-        const row = parseFloat(styles.gridAutoRows);
-        const gap = parseFloat(styles.rowGap);
-        gallery.querySelectorAll(".collage-item").forEach(item => {
-          const img = item.querySelector("img");
-          if (!img || !img.naturalWidth) return;
-          const height = img.getBoundingClientRect().height;
-          item.style.gridRowEnd = `span ${Math.max(1, Math.ceil((height + gap) / (row + gap)))}`;
-        });
-      }
-
-      function scheduleResize() {
-        if (resizePending) return;
-        resizePending = true;
-        requestAnimationFrame(() => {
-          resizePending = false;
-          resizeGallery();
-        });
-      }
-      async function loadCaptions() {
-        const response = await fetch("assets/photos/captions.csv");
-        if (!response.ok) throw new Error(`CSV loading failed: ${response.status}`);
-        const text = await response.text();
-        const rows = text.replace(/^\uFEFF/, "").trim().split(/\r?\n/).slice(1);
-        return Object.fromEntries(rows.filter(Boolean).map(row => {
-          const [directory, number, en, ja] = row.split(",");
-          const filename = `IMG_${String(Number(number)).padStart(2, "0")}.jpg`;
-          return [`${directory.trim()}/${filename}`, {
-            en: (en || "").trim(),
-            ja: (ja || "").trim()
-          }];
-        }));
-      }
-      function showPhoto() {
-        const photo = photos[currentIndex];
-        const key = `${photo.size}/${photo.src.split("/").pop()}`;
-        const lang = document.documentElement.dataset.language === "ja" ? "ja" : "en";
-        const caption = captions[key]?.[lang] || "";
-        viewer.src = photo.src;
-        viewer.alt = caption;
-        document.getElementById("collage-caption").textContent = caption;
-        counter.textContent = `${currentIndex + 1} / ${photos.length}`;
-      }
-
-      function openLightbox(index, element) {
-        currentIndex = index;
-        lastFocused = element;
-        showPhoto();
-        lightbox.hidden = false;
-        document.body.classList.add("lightbox-open");
-        closeButton.focus();
-      }
-
-      function closeLightbox() {
-        lightbox.hidden = true;
-        viewer.removeAttribute("src");
-        document.body.classList.remove("lightbox-open");
-        if (lastFocused?.isConnected) lastFocused.focus();
-      }
-
-      function movePhoto(direction) {
-        if (!photos.length) return;
-        currentIndex = (currentIndex + direction + photos.length) % photos.length;
-        showPhoto();
-      }
-
-      photos.forEach((photo, index) => {
-        const link = document.createElement("a");
-        link.className = `collage-item ${photo.size === "large" ? "large" : ""}`;
-        link.href = photo.src;
-        link.setAttribute("aria-label", `Open photo ${index + 1}`);
-
-        const img = document.createElement("img");
-        img.src = photo.src;
-        img.alt = "";
-        img.decoding = "async";
-
-        img.addEventListener("load", scheduleResize);
-        img.addEventListener("error", () => {
-          link.remove();
-          const i = photos.indexOf(photo);
-          if (i !== -1) photos.splice(i, 1);
-          scheduleResize();
-        });
-
-        link.appendChild(img);
-        gallery.appendChild(link);
-
-        link.addEventListener("click", event => {
-          event.preventDefault();
-          if (!img.naturalWidth) return;
-          openLightbox(photos.indexOf(photo), link);
-        });
-      });
-
-      closeButton.addEventListener("click", closeLightbox);
-      prevButton.addEventListener("click", () => movePhoto(-1));
-      nextButton.addEventListener("click", () => movePhoto(1));
-
-      lightbox.addEventListener("click", event => {
-        if (event.target === lightbox) closeLightbox();
-      });
-
-      document.addEventListener("keydown", event => {
-        if (lightbox.hidden) return;
-        if (event.key === "Escape") closeLightbox();
-        if (event.key === "ArrowLeft") movePhoto(-1);
-        if (event.key === "ArrowRight") movePhoto(1);
-        if (event.key === "Tab") {
-          const controls = [closeButton, prevButton, nextButton];
-          const i = controls.indexOf(document.activeElement);
-          if (event.shiftKey && i <= 0) {
-            event.preventDefault();
-            nextButton.focus();
-          } else if (!event.shiftKey && i === controls.length - 1) {
-            event.preventDefault();
-            closeButton.focus();
-          }
-        }
-      });
-
-    window.addEventListener("resize", scheduleResize);
-    scheduleResize();
-
-    loadCaptions().then(data => {
-      captions = data;
-      if (!lightbox.hidden) showPhoto();
-    }).catch(error => console.error("キャプションの読み込みに失敗:", error));
-
-    });
-  </script>
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4ab7d51cf26e40cdbb34fb291a987a5d"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Optional: keep the Cloudflare analytics beacon from your original page here. -->
 </body>
 </html>

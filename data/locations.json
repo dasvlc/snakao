@@ -1,0 +1,157 @@
+{
+  "regions": [
+    {
+      "id": "Europe",
+      "ja": "Europe",
+      "map": "europe",
+      "world": {
+        "x": 16.32,
+        "y": 25.4
+      },
+      "places": [
+        {
+          "id": "Austria",
+          "ja": "オーストリア",
+          "point": {
+            "x": 60.35,
+            "y": 64
+          }
+        },
+        {
+          "id": "France",
+          "ja": "フランス",
+          "point": {
+            "x": 46.4,
+            "y": 61.94
+          }
+        },
+        {
+          "id": "Italy",
+          "ja": "イタリア",
+          "point": {
+            "x": 56.65,
+            "y": 78.42
+          }
+        }
+      ]
+    },
+    {
+      "id": "Japan",
+      "ja": "Japan",
+      "map": "japan",
+      "world": {
+        "x": 47.63,
+        "y": 29
+      },
+      "places": [
+        {
+          "id": "Mt. Asama",
+          "ja": "浅間山",
+          "point": {
+            "x": 49.68,
+            "y": 56.02
+          }
+        },
+        {
+          "id": "Sakurajima",
+          "ja": "桜島",
+          "point": {
+            "x": 32.45,
+            "y": 76.62
+          }
+        },
+        {
+          "id": "Mt. Kusatsu-Shirane",
+          "ja": "草津白根山",
+          "point": {
+            "x": 50.34,
+            "y": 52.16
+          }
+        },
+        {
+          "id": "Mt. Fuji",
+          "ja": "富士山",
+          "point": {
+            "x": 50.34,
+            "y": 59.9
+          }
+        },
+        {
+          "id": "Mt. Aso",
+          "ja": "阿蘇山",
+          "point": {
+            "x": 33.47,
+            "y": 69.2
+          }
+        },
+        {
+          "id": "Kirishima",
+          "ja": "霧島",
+          "point": {
+            "x": 33.06,
+            "y": 73.59
+          }
+        },
+        {
+          "id": "Mt. Kurikoma",
+          "ja": "栗駒山",
+          "point": {
+            "x": 54.46,
+            "y": 40.28
+          }
+        }
+      ]
+    },
+    {
+      "id": "South Pacific",
+      "ja": "South Pacific",
+      "map": "oceania",
+      "world": {
+        "x": 56.65,
+        "y": 62.46
+      },
+      "places": [
+        {
+          "id": "Ha'apai",
+          "ja": "Ha'apai",
+          "point": {
+            "x": 58.16,
+            "y": 78.5
+          }
+        },
+        {
+          "id": "Vava'u",
+          "ja": "Vava'u",
+          "point": {
+            "x": 59.81,
+            "y": 65.71
+          }
+        },
+        {
+          "id": "Tongatapu",
+          "ja": "Tongatapu",
+          "point": {
+            "x": 53.22,
+            "y": 92.83
+          }
+        },
+        {
+          "id": "Fiji",
+          "ja": "Fiji",
+          "point": {
+            "x": 17.63,
+            "y": 58.36
+          }
+        },
+        {
+          "id": "'Eua",
+          "ja": "'Eua",
+          "point": {
+            "x": 54.05,
+            "y": 95.54
+          }
+        }
+      ]
+    }
+  ]
+}
