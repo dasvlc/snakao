@@ -40,7 +40,7 @@
   }
   const translations = {
     en: {All:'All', Volcanoes:'Volcanoes', Mountains:'Mountains', 'Water & Coast':'Water & Coast', Cities:'Cities', 'Other Landscapes':'Other Landscapes', World:'World', Japan:'Japan', Europe:'Europe', Oceania:'Oceania', Asama:'Asama', Hokkaido:'Hokkaido', Kyushu:'Kyushu', Italy:'Italy', Iceland:'Iceland', Alps:'Alps', 'New Zealand':'New Zealand', Australia:'Australia'},
-    ja: {All:'すべて', Volcanoes:'火山', Mountains:'山岳', 'Water & Coast':'水辺・海岸', Cities:'街', 'Other Landscapes':'その他の風景', World:'世界', Japan:'日本', Europe:'ヨーロッパ', Oceania:'オセアニア', Asama:'浅間', Hokkaido:'北海道', Kyushu:'九州', Italy:'イタリア', Iceland:'アイスランド', Alps:'アルプス', 'New Zealand':'ニュージーランド', Australia:'オーストラリア'}
+    ja: {All:'すべて', Volcanoes:'火山', Mountains:'山', 'Water & Coast':'海岸', Cities:'街', 'Other Landscapes':'その他の風景', World:'世界', Japan:'日本', Europe:'ヨーロッパ', Oceania:'オセアニア', Asama:'浅間', Hokkaido:'北海道', Kyushu:'九州', Italy:'イタリア', Iceland:'アイスランド', Alps:'アルプス', 'New Zealand':'ニュージーランド', Australia:'オーストラリア'}
   };
   const text = (en, ja) => lang() === 'ja' ? ja : en;
   const lang = () => document.documentElement.dataset.language === 'ja' || document.documentElement.lang === 'ja' ? 'ja' : 'en';

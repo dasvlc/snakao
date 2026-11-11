@@ -2,7 +2,7 @@
   "regions": [
     {
       "id": "Europe",
-      "ja": "Europe",
+      "ja": "ヨーロッパ",
       "map": "europe",
       "world": {
         "x": 16.32,
@@ -37,7 +37,7 @@
     },
     {
       "id": "Japan",
-      "ja": "Japan",
+      "ja": "日本",
       "map": "japan",
       "world": {
         "x": 47.63,
@@ -72,7 +72,7 @@
     },
     {
       "id": "South Pacific",
-      "ja": "South Pacific",
+      "ja": "南太平洋",
       "map": "oceania",
       "world": {
         "x": 56.65,
