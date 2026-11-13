@@ -210,7 +210,7 @@
     viewer.alt = cap;
     $('collage-caption').textContent = cap;
     $('atlas-photo-place').textContent = p[`place_${lang()}`] || p.place_en || p.place_ja || '';
-    $('atlas-photo-location').textContent = [p.region, p.place].filter(Boolean).map(tr).join(' / ');
+    // $('atlas-photo-location').textContent = [p.region, p.place].filter(Boolean).map(tr).join(' / ');
     const coords = $('atlas-photo-coordinates');
     if (Number.isFinite(p.lat) && Number.isFinite(p.lng)) {
       coords.textContent = `${p.lat.toFixed(3)}°, ${p.lng.toFixed(3)}°`;
