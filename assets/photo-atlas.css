@@ -66,3 +66,88 @@
 @media(prefers-reduced-motion:reduce) {
   .photos-page .atlas-marker,.photos-page .atlas-text-button,.photos-page .atlas-breadcrumb button,.photos-page .atlas-category,.photos-page .atlas-text-button::after,.photos-page .atlas-breadcrumb button::after,.photos-page .atlas-category::after { transition:none; }
 }
+
+.photos-page .atlas-viewer-photo {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  min-width:0;
+}
+.photos-page .atlas-viewer-photo .collage-lightbox-image {
+  display:block;
+  max-width:100%;
+  max-height:min(75dvh,850px);
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
+.photos-page .atlas-viewer-photo .collage-caption {
+  position:static;
+  transform:none;
+  width:auto;
+  max-width:100%;
+  margin:10px 0 0;
+  color:#ccc;
+  font-size:12px;
+  font-weight:400;
+  line-height:1.7;
+  text-align:left;
+}
+.photos-page #atlas-photo-place {
+  font-size:14px;
+  color:#e6e6e6;
+}
+.photos-page #atlas-photo-location {
+  font-size:11px;
+  color:#999;
+}
+.photos-page .atlas-map-link {
+  position:relative;
+  display:inline-block;
+  color:#aaa;
+  font-size:11px;
+  text-decoration:none;
+  transition:color .22s ease,transform .22s ease;
+}
+.photos-page .atlas-map-link::after {
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-2px;
+  height:1px;
+  background:currentColor;
+  opacity:.45;
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .24s ease;
+}
+.photos-page .atlas-map-link:hover,
+.photos-page .atlas-map-link:focus-visible {
+  color:#fff;
+  transform:translateY(-1px);
+}
+.photos-page .atlas-map-link:hover::after,
+.photos-page .atlas-map-link:focus-visible::after {
+  transform:scaleX(1);
+}
+.photos-page .atlas-map-link[hidden] {
+  display:none;
+}
+.photos-page .atlas-related {
+  margin-top:32px;
+}
+@media(max-width:720px) {
+  .photos-page .atlas-viewer-photo .collage-lightbox-image {
+    max-height:46dvh;
+  }
+  .photos-page .atlas-related {
+    margin-top:24px;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .photos-page .atlas-map-link,
+  .photos-page .atlas-map-link::after {
+    transition:none;
+  }
+}

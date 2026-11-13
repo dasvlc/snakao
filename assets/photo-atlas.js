@@ -81,37 +81,45 @@
     return parseCsv(await r.text());
   }
   const safeFilename = value => /^IMG_\d{3}\.jpg$/i.test(value);
+
   async function loadPhotos() {
     if (isDemo) {
       const response = await fetch('data/demo-photos.json');
       if (!response.ok) throw Error('Demo data unavailable');
       photos = await response.json();
     } else {
-      // One CSV is the source of truth. Photos not listed here are not displayed.
       const rows = await getCsv('data/photos.csv');
-      const headers = (rows.shift() || []).map(h=>h.trim().toLowerCase());
+      const headers = (rows.shift() || []).map(h => h.trim().toLowerCase());
       photos = rows.map((cells, index) => {
-        const o = Object.fromEntries(headers.map((h,i)=>[h,(cells[i]||'').trim()]));
+        const o = Object.fromEntries(headers.map((h, i) => [h, (cells[i] || '').trim()]));
         if (!safeFilename(o.filename || '')) {
-          console.warn(`Skipping row ${index+2}: invalid filename`, o.filename);
+          console.warn(`Skipping row ${index + 2}: invalid filename`, o.filename);
           return null;
         }
-        const lat=o.latitude === '' ? null : Number(o.latitude);
-        const lng=o.longitude === '' ? null : Number(o.longitude);
+        const lat = o.latitude === '' ? null : Number(o.latitude);
+        const lng = o.longitude === '' ? null : Number(o.longitude);
+        const featured = /^(1|true|yes)$/i.test(o.featured || '');
         return {
-          id:o.filename, src:`assets/photos/${o.filename}`,
-          caption_en:o.caption_en || o.title_en || '', caption_ja:o.caption_ja || o.title_ja || '',
-          region:o.region || '', place:o.place || '',
-          lat:Number.isFinite(lat)?lat:null, lng:Number.isFinite(lng)?lng:null,
-          category:o.category || '', camera:o.camera || '',
-          featured:/^(1|true|yes)$/i.test(o.featured || ''),
-          size:/^(1|true|yes)$/i.test(o.featured || '') ? 'large':'small'
+          id: o.filename,
+          src: `assets/photos/${o.filename}`,
+          caption_en: o.caption_en || o.title_en || '',
+          caption_ja: o.caption_ja || o.title_ja || '',
+          region: o.region || '',
+          place: o.place || '',
+          place_en: o.place_en || '',
+          place_ja: o.place_ja || '',
+          lat: Number.isFinite(lat) ? lat : null,
+          lng: Number.isFinite(lng) ? lng : null,
+          category: o.category || '',
+          camera: o.camera || '',
+          featured,
+          size: featured ? 'large' : 'small'
         };
       }).filter(Boolean);
     }
-    // Seeded stable ordering: reshuffling on filter changes would be distracting.
-    photos.sort((a,b)=> hash(a.id) - hash(b.id));
+    photos.sort((a, b) => hash(a.id) - hash(b.id));
   }
+
   function hash(str) { let n=2166136261; for(let i=0;i<str.length;i++) n=Math.imul(n^str.charCodeAt(i),16777619); return n>>>0; }
   function countFor(region,place) {return photos.filter(p=> (!region || p.region===region) && (!place || p.place===place)).length;}
   function createButton(label, fn, className, disabled=false) {
@@ -193,35 +201,64 @@
   function relatedPhotos(photo) {
     return photos.filter(other=>other.id!==photo.id).map(other=>({other,km:distanceKm(photo,other)})).filter(x=>Number.isFinite(x.km)).sort((a,b)=>a.km-b.km).slice(0,2);
   }
+
   function showPhoto() {
-    const p=displayed[currentIndex];if(!p)return;
-    viewer.src=p.src;
-    const cap=p[`caption_${lang()}`]||p.caption_en||p[`title_${lang()}`]||p.title_en||p.title||'';
-    viewer.alt=cap;
-    $('collage-caption').textContent=cap;
-    $('atlas-photo-location').textContent=[p.region,p.place].filter(Boolean).map(tr).join(' / ');
-    $('atlas-photo-coordinates').textContent=Number.isFinite(p.lat)&&Number.isFinite(p.lng)?`${p.lat.toFixed(3)}°, ${p.lng.toFixed(3)}°`:'';
-    $('atlas-photo-camera').textContent=p.camera||'';
-    lightbox.querySelector('.collage-counter').textContent=`${currentIndex+1} / ${displayed.length}`;
-    const related=$('atlas-related');related.replaceChildren();
-    const found=relatedPhotos(p);if(!found.length)return;
-    const h=document.createElement('h3');h.textContent=text('Nearby photographs','近くで撮影された写真');related.append(h);
-    const list=document.createElement('div');list.className='atlas-related-list';
-    for(const {other,km} of found) {
-      const b=createButton('',()=>{
-        const index=displayed.findIndex(x=>x.id===other.id);
-        if(index!==-1) {currentIndex=index;showPhoto();}
-        else { // Nearby photographs can be outside current filters.
-          setMap('world');category='All';renderCategories();renderGallery();
-          currentIndex=displayed.findIndex(x=>x.id===other.id);showPhoto();
+    const p = displayed[currentIndex];
+    if (!p) return;
+    viewer.src = p.src;
+    const cap = p[`caption_${lang()}`] || p.caption_en || p[`title_${lang()}`] || p.title_en || p.title || '';
+    viewer.alt = cap;
+    $('collage-caption').textContent = cap;
+    $('atlas-photo-place').textContent = p[`place_${lang()}`] || p.place_en || p.place_ja || '';
+    $('atlas-photo-location').textContent = [p.region, p.place].filter(Boolean).map(tr).join(' / ');
+    const coords = $('atlas-photo-coordinates');
+    if (Number.isFinite(p.lat) && Number.isFinite(p.lng)) {
+      coords.textContent = `${p.lat.toFixed(3)}°, ${p.lng.toFixed(3)}°`;
+      coords.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.lat},${p.lng}`)}`;
+      coords.hidden = false;
+    } else {
+      coords.textContent = '';
+      coords.removeAttribute('href');
+      coords.hidden = true;
+    }
+    $('atlas-photo-camera').textContent = p.camera || '';
+    lightbox.querySelector('.collage-counter').textContent = `${currentIndex + 1} / ${displayed.length}`;
+    const related = $('atlas-related');
+    related.replaceChildren();
+    const found = relatedPhotos(p);
+    if (!found.length) return;
+    const h = document.createElement('h3');
+    h.textContent = text('Nearby photographs', '近くで撮影された写真');
+    related.append(h);
+    const list = document.createElement('div');
+    list.className = 'atlas-related-list';
+    for (const {other, km} of found) {
+      const b = createButton('', () => {
+        const index = displayed.findIndex(x => x.id === other.id);
+        if (index !== -1) {
+          currentIndex = index;
+          showPhoto();
+        } else {
+          setMap('world');
+          category = 'All';
+          renderCategories();
+          renderGallery();
+          currentIndex = displayed.findIndex(x => x.id === other.id);
+          showPhoto();
         }
-      },'atlas-related-item');
-      const img=document.createElement('img');img.src=other.src;img.alt='';img.loading='lazy';
-      const distance=document.createElement('span');distance.textContent=`${Math.round(km).toLocaleString()} km away`;
-      b.append(img,distance);list.append(b);
+      }, 'atlas-related-item');
+      const img = document.createElement('img');
+      img.src = other.src;
+      img.alt = '';
+      img.loading = 'lazy';
+      const distance = document.createElement('span');
+      distance.textContent = `${Math.round(km).toLocaleString()} km away`;
+      b.append(img, distance);
+      list.append(b);
     }
     related.append(list);
   }
+
   function openLightbox(index,element) {currentIndex=index;lastFocused=element;lightbox.hidden=false;document.body.classList.add('lightbox-open');showPhoto();closeButton.focus();}
   function closeLightbox(){lightbox.hidden=true;viewer.removeAttribute('src');document.body.classList.remove('lightbox-open');lastFocused?.isConnected&&lastFocused.focus();}
   function movePhoto(by){if(!displayed.length)return;currentIndex=(currentIndex+by+displayed.length)%displayed.length;showPhoto();}

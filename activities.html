@@ -76,16 +76,21 @@
   <div id="collage-lightbox" class="collage-lightbox atlas-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="collage-close" type="button" aria-label="Close">×</button>
     <button class="collage-prev" type="button" aria-label="Previous">‹</button>
+ 
     <div class="atlas-viewer-main">
-      <img class="collage-lightbox-image" alt="">
-      <div class="atlas-viewer-info">
+      <div class="atlas-viewer-photo">
+        <img class="collage-lightbox-image" alt="">
         <p id="collage-caption" class="collage-caption"></p>
+      </div>
+      <div class="atlas-viewer-info">
+        <p id="atlas-photo-place"></p>
         <p id="atlas-photo-location"></p>
-        <p id="atlas-photo-coordinates"></p>
+        <p><a id="atlas-photo-coordinates" class="atlas-map-link animated-link" target="_blank" rel="noopener noreferrer"></a></p>
         <p id="atlas-photo-camera"></p>
         <div id="atlas-related" class="atlas-related"></div>
       </div>
     </div>
+
     <button class="collage-next" type="button" aria-label="Next">›</button>
     <span class="collage-counter"></span>
   </div>
